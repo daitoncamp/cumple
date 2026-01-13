@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Cumple</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow: hidden;
+    transition: background 0.6s;
+}
+
+/* ===== TARJETA ===== */
+.card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px 26px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    box-shadow:
+        0 0 18px rgba(255, 95, 126, 0.6),
+        0 0 35px rgba(255, 95, 126, 0.4);
+    animation: fadeIn 1.2s ease;
+    transition: box-shadow 0.6s, background 0.6s, color 0.6s;
+}
+
+.card h1 {
+    color: #ff5f7e;
+    margin-bottom: 8px;
+}
+
+/* ===== NOMBRE ANIMADO ===== */
+.nombre {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #ff5f7e;
+    margin-bottom: 12px;
+    animation: glowName 2.5s infinite ease-in-out;
+}
+
+@keyframes glowName {
+    0% {
+        text-shadow: 0 0 5px #ff9a9e;
+        transform: scale(1);
+    }
+    50% {
+        text-shadow: 0 0 15px #ff5f7e;
+        transform: scale(1.05);
+    }
+    100% {
+        text-shadow: 0 0 5px #ff9a9e;
+        transform: scale(1);
+    }
+}
+
+.info {
+    font-size: 0.95rem;
+    color: #777;
+    margin-bottom: 18px;
+}
+
+.card p {
+    color: #555;
+    line-height: 1.65;
+}
+
+.firma {
+    margin-top: 18px;
+    font-style: italic;
+}
+
+.emojis {
+    font-size: 2rem;
+    margin: 10px 0;
+}
+
+/* ===== BOTÓN ===== */
+.toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 3;
+}
+
+/* ===== CORAZONES ===== */
+.heart {
+    position: absolute;
+    bottom: -30px;
+    font-size: 22px;
+    animation: floatUp linear infinite;
+    opacity: 0.75;
+    z-index: 1;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(0); opacity: 0.8; }
+    to { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* ===== MODO NOCHE ===== */
+body.dark {
+    background: linear-gradient(135deg, #1f1c2c, #2b5876);
+}
+
+body.dark .card {
+    background: #2b2b3d;
+    color: #f1f1f1;
+    box-shadow:
+        0 0 18px rgba(120, 160, 255, 0.7),
+        0 0 40px rgba(120, 160, 255, 0.5);
+}
+
+body.dark .card p,
+body.dark .info {
+    color: #ddd;
+}
+
+body.dark .nombre {
+    color: #9dbbff;
+    animation: glowNameDark 2.5s infinite ease-in-out;
+}
+
+@keyframes glowNameDark {
+    0% {
+        text-shadow: 0 0 6px #6a85ff;
+        transform: scale(1);
+    }
+    50% {
+        text-shadow: 0 0 18px #9dbbff;
+        transform: scale(1.05);
+    }
+    100% {
+        text-shadow: 0 0 6px #6a85ff;
+        transform: scale(1);
+    }
+}
+
+body.dark .toggle {
+    background: #2b2b3d;
+    color: #fff;
+}
+
+
+
+/* ===== MENSAJE SECRETO ===== */
+#mensajeSecreto {
+    position: fixed;
+    bottom: 25%;
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    background: rgba(255, 255, 255, 0.95);
+    color: #444;
+    padding: 16px 22px;
+    border-radius: 16px;
+    font-size: 0.95rem;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(255, 95, 126, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.6s ease;
+    z-index: 4;
+}
+
+#mensajeSecreto.mostrar {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+
+/* MODO NOCHE */
+body.dark #mensajeSecreto {
+    background: rgba(43, 43, 61, 0.95);
+    color: #f1f1f1;
+    box-shadow: 0 0 30px rgba(120, 160, 255, 0.5);
+}
+
+
+
+
+
+</style>
+</head>
+
+<body>
+
+<!-- BOTÓN MODO NOCHE -->
+<button class="toggle" onclick="toggleDark()">🌙</button>
+
+<!-- TARJETA -->
+<div class="card">
+    <h1>🎉 ¡Feliz Cumpleaños!🎉</h1>
+
+    <!-- MENSAJE SECRETO -->
+<div id="mensajeSecreto">
+    Quería que supieras que conocerte fue un regalo inesperado.<br>
+    Gracias por ser tan increíble ✨
+</div>
+
+
+    <div class="nombre">✨Kate ✨</div>
+
+    <div class="info">
+        <div><strong>De:</strong> Daiton</div>
+    </div>
+
+    <div class="emojis">🎈💖✨</div>
+
+    <p>
+        Hoy celebro no solo tu cumpleaños, sino también la suerte de conocer
+        a una persona tan maravillosa como tú. Te admiro mucho por quién eres,
+        por tu forma de ser y por todo lo bueno que transmites.
+        Me alegra profundamente haber conocido a alguien tan increíble.
+        Gracias por estar y por hacer la diferencia con tu presencia 💕.
+    </p>
+
+    <div class="firma">
+        Con mucho cariño,<br>
+        <strong>Daiton</strong>
+    </div>
+</div>
+
+
+
+
+<script>
+let mensajeMostrado = false;
+
+/* ===== CORAZONES FLOTANTES ===== */
+function crearCorazones() {
+    const claros = ["💖","💗","💕","❤️","💘"];
+    const oscuros = ["💜","💙","✨","💫"];
+    const esNoche = document.body.classList.contains("dark");
+    const lista = esNoche ? oscuros : claros;
+
+    for (let i = 0; i < 18; i++) {
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.innerText = lista[Math.floor(Math.random() * lista.length)];
+        h.style.left = Math.random() * 100 + "vw";
+        h.style.animationDuration = (6 + Math.random() * 6) + "s";
+        h.style.fontSize = (16 + Math.random() * 20) + "px";
+        h.style.animationDelay = Math.random() * 5 + "s";
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 12000);
+    }
+}
+
+/* ===== EXPLOSIÓN ===== */
+function explosionCorazones() {
+    const claros = ["💖","💗","💕","❤️","💘"];
+    const oscuros = ["💜","💙","✨","💫"];
+    const esNoche = document.body.classList.contains("dark");
+    const lista = esNoche ? oscuros : claros;
+
+    const centroX = window.innerWidth / 2;
+    const centroY = window.innerHeight / 2;
+
+    for (let i = 0; i < 30; i++) {
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.innerText = lista[Math.floor(Math.random() * lista.length)];
+        h.style.left = centroX + "px";
+        h.style.top = centroY + "px";
+        h.style.position = "fixed";
+        h.style.fontSize = (18 + Math.random() * 18) + "px";
+
+        const angulo = Math.random() * 2 * Math.PI;
+        const distancia = 80 + Math.random() * 120;
+        const x = Math.cos(angulo) * distancia;
+        const y = Math.sin(angulo) * distancia;
+
+        h.animate([
+            { transform: "translate(0,0)", opacity: 1 },
+            { transform: `translate(${x}px, ${y}px)`, opacity: 0 }
+        ], {
+            duration: 900,
+            easing: "ease-out"
+        });
+
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 900);
+    }
+}
+
+/* ===== MOSTRAR MENSAJE SECRETO ===== */
+function mostrarMensajeSecreto() {
+    const mensaje = document.getElementById("mensajeSecreto");
+    mensaje.classList.add("mostrar");
+
+    // ⏳ Desaparece después de 4 segundos
+    setTimeout(() => {
+        mensaje.classList.remove("mostrar");
+    }, 6000);
+}
+
+/* ===== INICIAL ===== */
+crearCorazones();
+
+/* ===== TOGGLE ===== */
+function toggleDark() {
+    explosionCorazones();
+    document.body.classList.toggle("dark");
+    document.querySelectorAll(".heart").forEach(h => h.remove());
+    crearCorazones();
+
+    setTimeout(mostrarMensajeSecreto, 700);
+}
+</script>
+
+
+
+</body>
+</html>
